@@ -1,0 +1,8 @@
+{
+  "configuration": {
+     "author": "Your Name" ,
+  },
+
+  "encoding" : "Western (Windows 1252)",
+  "syntax"   : "C.sublime-syntax"
+}

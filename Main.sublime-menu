@@ -1,0 +1,27 @@
+[
+  {
+    "id": "preferences",
+    "children":
+      [
+        {
+          "id" : "package-settings",
+          "children":
+            [
+              {
+                "caption": "NewMod",
+//                "children":
+//                  [
+//                    {
+                      "command": "edit_settings", "args":
+                      {
+                      "base_file": "${packages}/NewMod/NewMod.sublime-settings",
+                      "default": "// NewMod Settings - User\n{\n\t$0\n}\n"
+                      }
+//                    }
+//                  ]
+              }
+            ]
+        }
+      ]
+  }
+]
