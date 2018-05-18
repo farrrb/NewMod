@@ -60,14 +60,18 @@ class NewModCommand(sublime_plugin.TextCommand):
 
     # generate timestamp
     timestamp = datetime.date.today()
-    date      = str(timestamp.day) + "." + str(timestamp.month) + "." + str(timestamp.year)
+    date      = '{:02d}'.format(timestamp.day) + "." + '{:02d}'.format(timestamp.month) + "." + '{:4d}'.format(timestamp.year)
 
     # create dictionary
     dic = {}
     dic['name']   = name;
     dic['NAME']   = name.upper()
-    dic['author'] = config['author']
     dic['date']   = date
+
+    # parse config dictionary and add entries in the template substitution dictionary
+    for key in config:
+      dic[key.lower()] = config[key]          # key lowercase and value as it is
+      dic[key.upper()] = config[key].upper()  # uppercase
 
     # get current window
     window = self.view.window()
