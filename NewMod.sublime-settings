@@ -1,7 +1,14 @@
 {
-  "configuration": {
-     "author": "Your Name" ,
+  "config" :
+  {
+     "author": "John Doe" ,
   },
+
+  "templates" :
+  [
+    "template.h",
+    "template.c"
+  ],
 
   "encoding" : "Western (Windows 1252)",
   "syntax"   : "C.sublime-syntax"

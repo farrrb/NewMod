@@ -1,29 +1,94 @@
+# Sublime API imports
 import sublime
 import sublime_plugin
 
-PACKAGE_NAME = "NewMod"
+# Custom imports
+import os
+import datetime
+from string import Template
 
+PACKAGE_NAME = "NewMod"
+TEMPLATE_DIR = "templates"
+BASE_PATH    = os.path.abspath(os.path.dirname(__file__))
+
+# Input handler for capture of the module name
+class NewModInputHandler(sublime_plugin.TextInputHandler):
+
+  def __init__(self, view):
+    self.view = view
+
+  def name(self):
+    return "name"
+
+  def placeholder(self):
+    return "File name"
+
+  def initial_text(self):
+    return "MyModule"
+
+  def validate(self, name):
+    # empty strings and strings containing whitespace(s) are not allowed
+    if name == "" or " " in name:
+      return False
+    # string is valid
+    return True
+
+# Main class of the plugin
 class NewModCommand(sublime_plugin.TextCommand):
-  def run(self, edit, text):
+
+  def input(self, args):
+    return NewModInputHandler(self.view)
+
+  def read_template(self, path, mode='r'):
+    file = open(path, mode)
+    template = file.read()
+    file.close()
+    return template
+
+  def run(self, edit, name):
+
+    print(BASE_PATH)
+
+    # extract settings
     settings = sublime.load_settings(PACKAGE_NAME + '.sublime-settings')
-    encoding = settings.get("encoding", "UTF-8")
-    syntax   = settings.get("syntax",   "C.sublime-syntax")
+    encoding = settings.get("encoding")
+    syntax   = settings.get("syntax")
+
+    # settings for template creation
+    config = settings.get('config')
+
+    # get template files
+    template_names = settings.get('templates')
+
+    # generate timestamp
+    timestamp = datetime.date.today()
+    date      = str(timestamp.day) + "." + str(timestamp.month) + "." + str(timestamp.year)
+
+    # create dictionary
+    dic = {}
+    dic['name']   = name;
+    dic['NAME']   = name.upper()
+    dic['author'] = config['author']
+    dic['date']   = date
 
     # get current window
     window = self.view.window()
 
-    # create new file
-    window.new_file()
+    for tpl in template_names:
 
-    # get active active_view
-    active_view = window.active_view()
+      # read template
+      tpl_string = self.read_template(os.path.join(BASE_PATH, TEMPLATE_DIR, tpl))
 
-    # set options
-    active_view.set_encoding(encoding)
-    active_view.set_syntax_file(syntax)
+      # do the template substitution
+      tpl_string = Template(tpl_string).safe_substitute(dic)
 
-    print(text)
+      # create new file
+      window.new_file()
+      # get active active_view
+      active_view = window.active_view()
 
-  def input(self, args):
-    return sublime_plugin.TextInputHandler()
+      # set options
+      active_view.set_encoding(encoding)
+      active_view.set_syntax_file(syntax)
 
+      active_view.insert(edit, 0, tpl_string)
