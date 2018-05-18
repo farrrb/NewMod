@@ -3,8 +3,8 @@ NewMod
 
 A Sublime Text 3 Plugin
 
-Installation
-------------
+Installation Instructions
+-------------------------
 
 *Github*
 
