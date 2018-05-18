@@ -18,7 +18,7 @@ Installation Instructions
 Usage
 -----
 
-1. Open the Command Palette (`CTRL + SHIFT + P`)
+1. Open the Command Palette (Windows / Linux: `CTRL + SHIFT + P` / Mac: `CMD + SHIFT + P`)
 2. Enter `NewMod: Create` and press `ENTER`
 3. Type in your module name (note: whitespaces are note allowed!) and confirm with `ENTER`
 4. Done
