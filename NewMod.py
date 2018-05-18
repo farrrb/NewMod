@@ -40,12 +40,11 @@ class NewModCommand(sublime_plugin.TextCommand):
     return NewModInputHandler(self.view)
 
   def create_dictionary(self, name, date, config):
-
     # create dictionary
     dic = {}
-    dic['name']   = name;
-    dic['NAME']   = name.upper()
-    dic['date']   = date
+    dic['name'] = name;
+    dic['NAME'] = name.upper()
+    dic['date'] = date
 
     # parse config dictionary and add entries in the template substitution dictionary
     for key in config:
@@ -55,10 +54,10 @@ class NewModCommand(sublime_plugin.TextCommand):
     return dic
 
   def substitute_template(self, path, dic):
+    # open the file in read only mode
     file = open(path, 'r')
     template = file.read()
     file.close()
-
     # do the template substitution
     template = Template(template).safe_substitute(dic)
 
@@ -74,7 +73,6 @@ class NewModCommand(sublime_plugin.TextCommand):
       view.set_syntax_file(syntax)
 
   def run(self, edit, name):
-
     # extract settings
     settings = sublime.load_settings(PACKAGE_NAME + '.sublime-settings')
     encoding = settings.get("encoding")
