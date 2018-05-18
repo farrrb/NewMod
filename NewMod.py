@@ -78,6 +78,13 @@ class NewModCommand(sublime_plugin.TextCommand):
 
     for tpl in template_names:
 
+      # get file extension from template
+      parts = tpl.split(".")
+      if len(parts) > 1:
+        extension = "." + parts[1]
+      else:
+        extension = ""
+
       # read template
       tpl_string = self.read_template(os.path.join(BASE_PATH, TEMPLATE_DIR, tpl))
 
@@ -85,12 +92,15 @@ class NewModCommand(sublime_plugin.TextCommand):
       tpl_string = Template(tpl_string).safe_substitute(dic)
 
       # create new file
-      window.new_file()
-      # get active active_view
-      active_view = window.active_view()
+      view = window.new_file()
+      view.set_name(dic['name'] + extension)
 
       # set options
-      active_view.set_encoding(encoding)
-      active_view.set_syntax_file(syntax)
+      if encoding:
+        view.set_encoding(encoding)
 
-      active_view.insert(edit, 0, tpl_string)
+      # set syntax if available
+      if syntax:
+        view.set_syntax_file(syntax)
+
+      view.insert(edit, 0, tpl_string)

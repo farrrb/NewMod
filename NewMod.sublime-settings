@@ -10,6 +10,9 @@
     "template.c"
   ],
 
-  "encoding" : "Western (Windows 1252)",
-  "syntax"   : "C.sublime-syntax"
+  // Set different encoding than the default (UTF-8)
+  //"encoding" : "Western (Windows 1252)",
+
+  // enforce syntax file
+  //"syntax"   : "C.sublime-syntax"
 }

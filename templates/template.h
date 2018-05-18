@@ -1,6 +1,6 @@
-HEADER
-------
-${name}
-${NAME}
-${author}
-${date}
+/// HEADER
+/// ------
+/// ${name}
+/// ${NAME}
+/// ${author}
+/// ${date}

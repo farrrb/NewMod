@@ -1,6 +1,6 @@
-SOURCE
-------
-${name}
-${NAME}
-${author}
-${date}
+/// SOURCE
+/// ------
+/// ${name}
+/// ${NAME}
+/// ${author}
+/// ${date}
