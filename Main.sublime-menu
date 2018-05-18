@@ -1,27 +1,45 @@
 [
   {
     "id": "preferences",
-    "children":
-      [
-        {
-          "id" : "package-settings",
-          "children":
-            [
+    "children": [
+      {
+        "id": "package-settings",
+        "children": [
+          {
+            "caption": "NewMod",
+            "children": [
+              // Settings
               {
-                "caption": "NewMod",
-//                "children":
-//                  [
-//                    {
-                      "command": "edit_settings", "args":
-                      {
-                      "base_file": "${packages}/NewMod/NewMod.sublime-settings",
-                      "default": "// NewMod Settings - User\n{\n\t$0\n}\n"
-                      }
-//                    }
-//                  ]
+                "command": "edit_settings",
+                "args": {
+                  "base_file": "${packages}/NewMod/NewMod.sublime-settings",
+                  "default": "// NewMod Settings - User\n{\n\t$0\n}\n"
+                },
+                "caption": "Settings"
+              },
+              // Line spacer.
+              {
+                "caption": "-"
+              },
+              // Edit templates.
+              {
+                "command": "open_file",
+                "args": {
+                  "file": "${packages}/NewMod/templates/template.h"
+                },
+                "caption": "Edit - template.h"
+              },
+              {
+                "command": "open_file",
+                "args": {
+                  "file": "${packages}/NewMod/templates/template.c"
+                },
+                "caption": "Edit - template.c"
               }
             ]
-        }
-      ]
+          }
+        ]
+      }
+    ]
   }
 ]

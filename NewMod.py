@@ -47,8 +47,6 @@ class NewModCommand(sublime_plugin.TextCommand):
 
   def run(self, edit, name):
 
-    print(BASE_PATH)
-
     # extract settings
     settings = sublime.load_settings(PACKAGE_NAME + '.sublime-settings')
     encoding = settings.get("encoding")
