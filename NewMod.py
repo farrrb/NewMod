@@ -39,28 +39,7 @@ class NewModCommand(sublime_plugin.TextCommand):
   def input(self, args):
     return NewModInputHandler(self.view)
 
-  def read_template(self, path, mode='r'):
-    file = open(path, mode)
-    template = file.read()
-    file.close()
-    return template
-
-  def run(self, edit, name):
-
-    # extract settings
-    settings = sublime.load_settings(PACKAGE_NAME + '.sublime-settings')
-    encoding = settings.get("encoding")
-    syntax   = settings.get("syntax")
-
-    # settings for template creation
-    config = settings.get('config')
-
-    # get template files
-    template_names = settings.get('templates')
-
-    # generate timestamp
-    timestamp = datetime.date.today()
-    date      = '{:02d}'.format(timestamp.day) + "." + '{:02d}'.format(timestamp.month) + "." + '{:4d}'.format(timestamp.year)
+  def create_dictionary(self, name, date, config):
 
     # create dictionary
     dic = {}
@@ -73,34 +52,67 @@ class NewModCommand(sublime_plugin.TextCommand):
       dic[key.lower()] = config[key]          # key lowercase and value as it is
       dic[key.upper()] = config[key].upper()  # uppercase
 
+    return dic
+
+  def substitute_template(self, path, dic):
+    file = open(path, 'r')
+    template = file.read()
+    file.close()
+
+    # do the template substitution
+    template = Template(template).safe_substitute(dic)
+
+    return template
+
+  def set_options(self, view, encoding, syntax):
+    # set options
+    if encoding:
+      view.set_encoding(encoding)
+
+    # set syntax if available
+    if syntax:
+      view.set_syntax_file(syntax)
+
+  def run(self, edit, name):
+
+    # extract settings
+    settings = sublime.load_settings(PACKAGE_NAME + '.sublime-settings')
+    encoding = settings.get("encoding")
+    syntax   = settings.get("syntax")
+    config   = settings.get("config")
+
+    # get template files
+    template_names = settings.get('templates')
+
+    # generate timestamp
+    timestamp = datetime.date.today()
+    date      = '{:02d}'.format(timestamp.day) + "." + '{:02d}'.format(timestamp.month) + "." + '{:4d}'.format(timestamp.year)
+
+    # generate dictionary
+    dic = self.create_dictionary(name, date, config)
+
     # get current window
     window = self.view.window()
 
+    # iterate over every template
     for tpl in template_names:
 
       # get file extension from template
       parts = tpl.split(".")
       if len(parts) > 1:
-        extension = "." + parts[1]
+        extension = "." + parts[len(parts) - 1]
       else:
         extension = ""
 
-      # read template
-      tpl_string = self.read_template(os.path.join(BASE_PATH, TEMPLATE_DIR, tpl))
+      # read template & do text substitution
+      path  = os.path.join(BASE_PATH, TEMPLATE_DIR, tpl)
+      tpl_string = self.substitute_template(path, dic)
 
-      # do the template substitution
-      tpl_string = Template(tpl_string).safe_substitute(dic)
-
-      # create new file
+      # create new file (in a new tab)
       view = window.new_file()
-      view.set_name(dic['name'] + extension)
+      view.set_name(name + extension)
 
-      # set options
-      if encoding:
-        view.set_encoding(encoding)
-
-      # set syntax if available
-      if syntax:
-        view.set_syntax_file(syntax)
+      # set options to the new view
+      self.set_options(view, encoding, syntax)
 
       view.insert(edit, 0, tpl_string)
