@@ -1,3 +1,14 @@
 [
-  { "caption": "NewMod: Create", "command": "new_mod" },
+  {
+    "caption": "NewMod: Create",
+    "command": "new_mod"
+  },
+  {
+    "caption": "NewMod: Edit Settings",
+    "command": "edit_settings",
+    "args": {
+      "base_file": "${packages}/NewMod/NewMod.sublime-settings",
+      "default": "// NewMod Settings - User\n{\n\t$0\n}\n"
+    }
+  }
 ]
