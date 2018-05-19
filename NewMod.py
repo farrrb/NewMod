@@ -55,14 +55,17 @@ class NewModCommand(sublime_plugin.TextCommand):
     return dic
 
   def substitute_template(self, path, dic):
-    # open the file in read only mode
-    file = open(path, 'r')
-    template = file.read()
-    file.close()
-    # do the template substitution
-    template = Template(template).safe_substitute(dic)
+    try:
+      # open the file in read only mode
+      file = open(path, 'r')
+      template = file.read()
+      file.close()
+      # do the template substitution
+      template = Template(template).safe_substitute(dic)
 
-    return template
+      return template
+    except IOError:
+      self.throw_error("Couldn't open template file \"" + path + "\"")
 
   def set_options(self, view, encoding, syntax):
     # set options
@@ -73,6 +76,9 @@ class NewModCommand(sublime_plugin.TextCommand):
     if syntax:
       view.set_syntax_file(syntax)
 
+  def throw_error(self, error_message):
+    sublime.error_message("NewMod:\n" + error_message)
+
   def run(self, edit, name):
     # extract settings
     settings    = sublime.load_settings(PACKAGE_NAME + '.sublime-settings')
@@ -82,7 +88,7 @@ class NewModCommand(sublime_plugin.TextCommand):
     config      = settings.get("config")
 
     # get template files
-    template_names = settings.get('templates')
+    template_names = settings.get('templates', "")
 
     # generate date
     today = datetime.date.today()
@@ -95,24 +101,30 @@ class NewModCommand(sublime_plugin.TextCommand):
     window = self.view.window()
 
     # iterate over every template
-    for tpl in template_names:
+    if len(template_names):
+      for tpl in template_names:
+        print("true")
 
-      # get file extension from template
-      parts = tpl.split(".")
-      if len(parts) > 1:
-        extension = "." + parts[len(parts) - 1]
-      else:
-        extension = ""
+        # get file extension from template
+        parts = tpl.split(".")
+        if len(parts) > 1:
+          extension = "." + parts[-1]
+        else:
+          extension = ""
 
-      # read template & do text substitution
-      path  = os.path.join(BASE_PATH, TEMPLATE_DIR, tpl)
-      tpl_string = self.substitute_template(path, dic)
+        # read template & do text substitution
+        path  = os.path.join(BASE_PATH, TEMPLATE_DIR, tpl)
+        tpl_string = self.substitute_template(path, dic)
 
-      # create new file (in a new tab)
-      view = window.new_file()
-      view.set_name(name + extension)
+        # create new file (in a new tab)
+        view = window.new_file()
+        view.set_name(name + extension)
 
-      # set options to the new view
-      self.set_options(view, encoding, syntax)
+        # set options to the new view
+        self.set_options(view, encoding, syntax)
 
-      view.insert(edit, 0, tpl_string)
+        view.insert(edit, 0, tpl_string)
+    else:
+      self.throw_error("No template files were found, please check your configuration.")
+
+
