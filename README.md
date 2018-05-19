@@ -32,13 +32,13 @@ Predefined Symbols
 For now there are three predefined symbols:
 - `${name}` - the name you typed for the new module (e.g. MyModule)
 - `${NAME}` - the same thing as above, but in uppercase
-- `${date}` - the date in the format DD.MM.YYYY
+- `${date}` - today's date
 
 User-defined Symbols
 --------------------
 
-For each entry in the configuration (e.g. "author") the plugin creates automatically two symbols for you,
-which can be used in the template.
+For each entry in the configuration (e.g. "author") the plugin creates automatically
+two symbols for you, which can be used in the template.
 1. `${your_symbol}`
 2. `${YOUR_SYMBOL}`
 
@@ -56,3 +56,11 @@ For example if you add the following code to your user configuration
 the plugin will automatically create
 1. `${co_author}` - "John Doe"
 2. `${CO_AUTHOR}` - "JOHN DOE"
+
+Date Format
+-----------
+
+The date will be formatted using pythons strftime() function see this
+[link](https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior)
+for more information. The default format string is `"$d.%m.%Y"` which expands to
+DD.MM.YYYY (e.g. 19.05.2018).

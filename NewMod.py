@@ -47,9 +47,10 @@ class NewModCommand(sublime_plugin.TextCommand):
     dic['date'] = date
 
     # parse config dictionary and add entries in the template substitution dictionary
-    for key in config:
-      dic[key.lower()] = config[key]          # key lowercase and value as it is
-      dic[key.upper()] = config[key].upper()  # uppercase
+    if config is not None:
+      for key in config:
+        dic[key.lower()] = config[key]          # key lowercase and value as it is
+        dic[key.upper()] = config[key].upper()  # uppercase
 
     return dic
 
@@ -74,17 +75,18 @@ class NewModCommand(sublime_plugin.TextCommand):
 
   def run(self, edit, name):
     # extract settings
-    settings = sublime.load_settings(PACKAGE_NAME + '.sublime-settings')
-    encoding = settings.get("encoding")
-    syntax   = settings.get("syntax")
-    config   = settings.get("config")
+    settings    = sublime.load_settings(PACKAGE_NAME + '.sublime-settings')
+    encoding    = settings.get("encoding",    "UTF-8")
+    syntax      = settings.get("syntax",      "")
+    date_format = settings.get("date_format", "%d.%m.%Y")
+    config      = settings.get("config")
 
     # get template files
     template_names = settings.get('templates')
 
-    # generate timestamp
-    timestamp = datetime.date.today()
-    date      = '{:02d}'.format(timestamp.day) + "." + '{:02d}'.format(timestamp.month) + "." + '{:4d}'.format(timestamp.year)
+    # generate date
+    today = datetime.date.today()
+    date  = today.strftime(date_format)
 
     # generate dictionary
     dic = self.create_dictionary(name, date, config)

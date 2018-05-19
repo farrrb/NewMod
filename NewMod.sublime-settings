@@ -1,18 +1,21 @@
 {
-  "config" :
-  {
-     "author": "John Doe" ,
-  },
+  // The date format for ${date} (DD.MM.YYYY)
+//  "date_format" : "%d.%m.%Y",
+
+  // Set different encoding than the default (UTF-8)
+//  "encoding" : "Western (Windows 1252)",
+
+  // Enforce syntax file
+//  "syntax"   : "C.sublime-syntax",
+
+//  "config" :
+//  {
+//     "author": "John Doe" ,
+//  },
 
   "templates" :
   [
     "template.h",
     "template.c"
   ],
-
-  // Set different encoding than the default (UTF-8)
-  //"encoding" : "Western (Windows 1252)",
-
-  // enforce syntax file
-  //"syntax"   : "C.sublime-syntax"
 }
