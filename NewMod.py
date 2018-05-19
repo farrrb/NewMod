@@ -39,18 +39,18 @@ class NewModCommand(sublime_plugin.TextCommand):
   def input(self, args):
     return NewModInputHandler(self.view)
 
-  def create_dictionary(self, name, date, config):
+  def create_dictionary(self, name, date, subst):
     # create dictionary
     dic = {}
     dic['name'] = name;
     dic['NAME'] = name.upper()
     dic['date'] = date
 
-    # parse config dictionary and add entries in the template substitution dictionary
-    if config is not None:
-      for key in config:
-        dic[key.lower()] = config[key]          # key lowercase and value as it is
-        dic[key.upper()] = config[key].upper()  # uppercase
+    # parse substitution dictionary and add entries in the template substitution dictionary
+    if subst is not None:
+      for key in subst:
+        dic[key.lower()] = subst[key]          # key lowercase and value as it is
+        dic[key.upper()] = subst[key].upper()  # uppercase
 
     return dic
 
@@ -79,23 +79,23 @@ class NewModCommand(sublime_plugin.TextCommand):
   def throw_error(self, error_message):
     sublime.error_message("NewMod:\n" + error_message)
 
-  def run(self, edit, name):
+  def run(self, edit, name, type):
     # extract settings
     settings    = sublime.load_settings(PACKAGE_NAME + '.sublime-settings')
     encoding    = settings.get("encoding",    "UTF-8")
     syntax      = settings.get("syntax",      "")
     date_format = settings.get("date_format", "%d.%m.%Y")
-    config      = settings.get("config")
+    subst       = settings.get("substitutions")
 
     # get template files
-    template_names = settings.get('templates', "")
+    template_names = settings.get(type + "_templates", "")
 
     # generate date
     today = datetime.date.today()
     date  = today.strftime(date_format)
 
     # generate dictionary
-    dic = self.create_dictionary(name, date, config)
+    dic = self.create_dictionary(name, date, subst)
 
     # get current window
     window = self.view.window()
@@ -103,8 +103,6 @@ class NewModCommand(sublime_plugin.TextCommand):
     # iterate over every template
     if len(template_names):
       for tpl in template_names:
-        print("true")
-
         # get file extension from template
         parts = tpl.split(".")
         if len(parts) > 1:
@@ -113,7 +111,7 @@ class NewModCommand(sublime_plugin.TextCommand):
           extension = ""
 
         # read template & do text substitution
-        path  = os.path.join(BASE_PATH, TEMPLATE_DIR, tpl)
+        path  = os.path.join(BASE_PATH, TEMPLATE_DIR, type, tpl)
         tpl_string = self.substitute_template(path, dic)
 
         # create new file (in a new tab)
@@ -126,5 +124,3 @@ class NewModCommand(sublime_plugin.TextCommand):
         view.insert(edit, 0, tpl_string)
     else:
       self.throw_error("No template files were found, please check your configuration.")
-
-

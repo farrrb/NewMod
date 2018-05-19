@@ -8,14 +8,14 @@
   // Enforce syntax file
 //  "syntax"   : "C.sublime-syntax",
 
-//  "config" :
+  // Add some attributes to the configuration
+//  "substitutions" :
 //  {
 //     "author": "John Doe" ,
 //  },
 
-  "templates" :
-  [
-    "template.h",
-    "template.c"
-  ],
+  "default_templates"  : [ "template" ],
+  "c_templates"        : [ "template.h", "template.c" ],
+  "cpp_templates"      : [ "template.h", "template.cpp" ],
+  "python_templates"   : [ "template.py" ],
 }

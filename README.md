@@ -47,20 +47,20 @@ For example if you add the following code to your user configuration
 ```
 // NewMod Settings - User
 {
-  "config" :
+  "substitutions" :
   {
-     "co_author": "John Doe" ,
+     "author": "John Doe" ,
   }
 }
 ```
 the plugin will automatically create
-1. `${co_author}` - "John Doe"
-2. `${CO_AUTHOR}` - "JOHN DOE"
+1. `${author}` - "John Doe"
+2. `${AUTHOR}` - "JOHN DOE"
 
 Date Format
 -----------
 
 The date will be formatted using pythons strftime() function see this
 [link](https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior)
-for more information. The default format string is `"$d.%m.%Y"` which expands to
-DD.MM.YYYY (e.g. 19.05.2018).
+for more information if you want to customize the behaviour of `${date}`. The default
+format string is `"$d.%m.%Y"` which expands to DD.MM.YYYY (e.g. 19.05.2018).

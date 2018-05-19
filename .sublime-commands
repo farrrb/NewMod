@@ -1,14 +1,52 @@
 [
   {
-    "caption": "NewMod: Create",
-    "command": "new_mod"
+    "caption": "NewMod: Create Module \"Default\"",
+    "command": "new_mod",
+    "args": {
+      "type": "default"
+    }
   },
   {
-    "caption": "NewMod: Edit Settings",
+    "caption": "NewMod: Create Module \"C\"",
+    "command": "new_mod",
+    "args": {
+      "type": "c"
+    }
+  },
+  {
+    "caption": "NewMod: Create Module \"C++\"",
+    "command": "new_mod",
+    "args": {
+      "type": "cpp"
+    }
+  },
+  {
+    "caption": "NewMod: Create Module \"Python\"",
+    "command": "new_mod",
+    "args": {
+      "type": "python"
+    }
+  },
+  {
+    "caption": "NewMod: Settings",
     "command": "edit_settings",
     "args": {
       "base_file": "${packages}/NewMod/NewMod.sublime-settings",
       "default": "// NewMod Settings - User\n{\n\t$0\n}\n"
+    }
+  },
+  {
+    "caption": "NewMod: Open Templates Directory",
+    "command": "open_dir",
+    "args": {
+      "dir": "${packages}/NewMod/templates/"
+    }
+  },
+  {
+    "caption": "NewMod: Add Template Language",
+    "command": "open_file",
+    "args": {
+      "file": "${packages}/NewMod/.sublime-commands"
     }
   }
 ]

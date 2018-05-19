@@ -10,12 +10,12 @@
             "children": [
               // Settings
               {
+                "caption": "Settings",
                 "command": "edit_settings",
                 "args": {
                   "base_file": "${packages}/NewMod/NewMod.sublime-settings",
                   "default": "// NewMod Settings - User\n{\n\t$0\n}\n"
-                },
-                "caption": "Settings"
+                }
               },
               // Line spacer.
               {
@@ -23,18 +23,18 @@
               },
               // Edit templates.
               {
-                "command": "open_file",
+                "caption": "Open Templates Directory",
+                "command": "open_dir",
                 "args": {
-                  "file": "${packages}/NewMod/templates/template.h"
-                },
-                "caption": "Edit - template.h"
+                  "dir": "${packages}/NewMod/templates/"
+                }
               },
               {
-                "command": "open_file",
-                "args": {
-                  "file": "${packages}/NewMod/templates/template.c"
-                },
-                "caption": "Edit - template.c"
+              "caption": "Add Template Language",
+              "command": "open_file",
+              "args": {
+                "file": "${packages}/NewMod/.sublime-commands"
+              }
               }
             ]
           }
