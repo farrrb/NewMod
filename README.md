@@ -1,10 +1,15 @@
 NewMod
 ======
 
-A Sublime Text 3 Plugin.
+A Sublime Text 3 plugin for creating new (empty) modules.
 
-The purpose of NewMod is to create new source (and / or) header files for your language of choice. For now
-only one language at a time is allowed. I plan to alter the code in order to support multiple languages.
+The purpose of NewMod is to create new source (and / or) header files for your language of choice. It is
+extensible so you can add your languages of choice to the module. For now the default languages that are
+supported are:
+- C
+- C++
+- Default (Plain Text)
+- Python
 
 Installation Instructions
 -------------------------
@@ -37,8 +42,8 @@ For now there are three predefined symbols:
 User-defined Symbols
 --------------------
 
-For each entry in the configuration (e.g. "author") the plugin creates automatically
-two symbols for you, which can be used in the template.
+For each entry in the substitution configuration (e.g. "author") the plugin
+automatically creates two symbols for you, which can be used in the template:
 1. `${your_symbol}`
 2. `${YOUR_SYMBOL}`
 
@@ -53,14 +58,14 @@ For example if you add the following code to your user configuration
   }
 }
 ```
-the plugin will automatically create
-1. `${author}` - "John Doe"
-2. `${AUTHOR}` - "JOHN DOE"
+the plugin will automatically create:
+1. `${author}` (expands to "John Doe")
+2. `${AUTHOR}` (expands to "JOHN DOE")
 
 Date Format
 -----------
 
 The date will be formatted using pythons strftime() function see this
 [link](https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior)
-for more information if you want to customize the behaviour of `${date}`. The default
+for more information if you want to customize the behavior of `${date}`. The default
 format string is `"$d.%m.%Y"` which expands to DD.MM.YYYY (e.g. 19.05.2018).
