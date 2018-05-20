@@ -1,4 +1,8 @@
 {
+  // -------------
+  // General Setup
+  // -------------
+
   // The date format for ${date} (DD.MM.YYYY)
 //  "date_format" : "%d.%m.%Y",
 
@@ -14,8 +18,19 @@
 //     "author": "John Doe" ,
 //  },
 
+  // -----------------
+  // Language Settings
+  // -----------------
+
+  // Default
   "default_templates"  : [ "template" ],
+  // C
   "c_templates"        : [ "template.h", "template.c" ],
+  "c_syntax"           : "C.sublime-syntax",
+  // C++
   "cpp_templates"      : [ "template.h", "template.cpp" ],
+  "cpp_syntax"         : "C++.sublime-syntax",
+  // Python
   "python_templates"   : [ "template.py" ],
+  "python_syntax"      : "Python.sublime-syntax",
 }

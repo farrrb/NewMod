@@ -82,9 +82,9 @@ class NewModCommand(sublime_plugin.TextCommand):
   def run(self, edit, name, type):
     # extract settings
     settings    = sublime.load_settings(PACKAGE_NAME + '.sublime-settings')
-    encoding    = settings.get("encoding",    "UTF-8")
-    syntax      = settings.get("syntax",      "")
-    date_format = settings.get("date_format", "%d.%m.%Y")
+    encoding    = settings.get("encoding",            "UTF-8")
+    syntax      = settings.get(type + "_syntax",      "")
+    date_format = settings.get("date_format",         "%d.%m.%Y")
     subst       = settings.get("substitutions")
 
     # get template files
