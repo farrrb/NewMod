@@ -39,12 +39,13 @@ class NewModCommand(sublime_plugin.TextCommand):
   def input(self, args):
     return NewModInputHandler(self.view)
 
-  def create_dictionary(self, name, date, subst):
+  def create_dictionary(self, name, date, time, subst):
     # create dictionary
     dic = {}
     dic['name'] = name;
     dic['NAME'] = name.upper()
     dic['date'] = date
+    dic['time'] = time
 
     # parse substitution dictionary and add entries in the template substitution dictionary
     if subst is not None:
@@ -85,17 +86,19 @@ class NewModCommand(sublime_plugin.TextCommand):
     encoding    = settings.get("encoding",            "UTF-8")
     syntax      = settings.get(type + "_syntax",      "")
     date_format = settings.get("date_format",         "%d.%m.%Y")
+    time_format = settings.get("time_format",         "%H:%M")
     subst       = settings.get("substitutions")
 
     # get template files
     template_names = settings.get(type + "_templates", "")
 
     # generate date
-    today = datetime.date.today()
-    date  = today.strftime(date_format)
+    now   = datetime.datetime.now()
+    date  = now.strftime(date_format)
+    time  = now.strftime(time_format)
 
     # generate dictionary
-    dic = self.create_dictionary(name, date, subst)
+    dic = self.create_dictionary(name, date, time, subst)
 
     # get current window
     window = self.view.window()

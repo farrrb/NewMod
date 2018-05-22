@@ -1,6 +1,5 @@
 NewMod
 ======
-
 A Sublime Text 3 plugin for creating new (empty) modules.
 
 The purpose of NewMod is to create new source (and / or) header files for your language of choice. It is
@@ -33,17 +32,18 @@ Usage
 
 Predefined Symbols
 ------------------
+For now there are the following predefined symbols:
 
-For now there are three predefined symbols:
 - `${name}` - the name you typed for the new module (e.g. MyModule)
 - `${NAME}` - the same thing as above, but in uppercase
 - `${date}` - today's date
+- `${time}` - the current time
 
 User-defined Symbols
 --------------------
-
 For each entry in the substitution configuration (e.g. "author") the plugin
 automatically creates two symbols for you, which can be used in the template:
+
 1. `${your_symbol}`
 2. `${YOUR_SYMBOL}`
 
@@ -62,10 +62,13 @@ the plugin will automatically create:
 1. `${author}` (expands to "John Doe")
 2. `${AUTHOR}` (expands to "JOHN DOE")
 
-Date Format
------------
-
-The date will be formatted using pythons strftime() function see this
+Date and Time Formats
+---------------------
+The date and the current time will be formatted using pythons strftime() function.
+If you want to customize the behavior of `${date}` or `${time}`, take a look at this
 [link](https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior)
-for more information if you want to customize the behavior of `${date}`. The default
-format string is `"$d.%m.%Y"` which expands to DD.MM.YYYY (e.g. 19.05.2018).
+for further information.
+
+The default format string for the date is `"$d.%m.%Y"` which expands to DD.MM.YYYY (e.g. 19.05.2018).
+
+The default format string for the current time is `"%H:%M` which expands to HH.MM (e.g. 22:47).

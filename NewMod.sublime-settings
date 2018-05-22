@@ -5,6 +5,8 @@
 
   // The date format for ${date} (DD.MM.YYYY)
 //  "date_format" : "%d.%m.%Y",
+  // The time format for ${time} (HH:MM)
+//    "time_format" : "%H:%M",
 
   // Set different encoding than the default (UTF-8)
 //  "encoding" : "Western (Windows 1252)",

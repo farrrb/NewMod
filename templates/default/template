@@ -3,3 +3,4 @@ Default Template
 ${name}
 ${NAME}
 ${date}
+${time}
