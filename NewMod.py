@@ -97,6 +97,9 @@ class NewModCommand(sublime_plugin.TextCommand):
     date  = now.strftime(date_format)
     time  = now.strftime(time_format)
 
+    # generate name: prefix + name + suffix
+    name = settings.get(type + "_prefix", "") + name + settings.get(type + "_suffix", "")
+
     # generate dictionary
     dic = self.create_dictionary(name, date, time, subst)
 

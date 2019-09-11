@@ -29,6 +29,10 @@
   // C
   "c_templates"        : [ "template.h", "template.c" ],
   "c_syntax"           : "C.sublime-syntax",
+  // C Unit Tests
+  "ctest_templates"    : [ "template.h", "template.c" ],
+  "ctest_syntax"       : "C.sublime-syntax",
+  "ctest_prefix"       : "Test",
   // C++
   "cpp_templates"      : [ "template.h", "template.cpp" ],
   "cpp_syntax"         : "C++.sublime-syntax",

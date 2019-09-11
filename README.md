@@ -47,7 +47,7 @@ automatically creates two symbols for you, which can be used in the template:
 1. `${your_symbol}`
 2. `${YOUR_SYMBOL}`
 
-For example if you add the following code to your user configuration
+For example if you add the following code to your user configuration:
 
 ```
 // NewMod Settings - User
